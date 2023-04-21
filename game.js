@@ -98,7 +98,6 @@ kaboom({
   
     const gameLevel = addLevel(maps[level], levelCfg)
     
-    const bottomScreen = [];
 
     const instructions = add([
         text("Find out more about me!\n\n Move around with arrow keys\n\nJump with space to learn more from the boxes :) \n\n Don't get hit by goombas - it's dangerous out there"),
@@ -125,8 +124,6 @@ kaboom({
     ])
    
   
-  
-    const score = 0
     function big() {
       let timer = 0
       let isBig = false
@@ -170,7 +167,10 @@ kaboom({
     })
   
     player.on("headbump", (obj) => {
-        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+        
+      if(obj.is("block"))
+        gameLevel.destroy(obj)
+      
         
       if (obj.is('coin-surprise')) {
         //collides with a suprise box meant to be a coin. repurpose for displaying work history
@@ -244,8 +244,13 @@ kaboom({
       keyPress('down', () => {
         go('game', {
           level: (level + 1) % maps.length,
-          score: scoreLabel.value
         })
+
+        destroy(instructions)
+        destroy(aboutMeLvl1)
+        destroy(rcmp)
+        destroy(electronicArts)
+        destroy(infoPipe)
       })
     })
   
