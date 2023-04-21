@@ -58,11 +58,11 @@ kaboom({
       ],
       [
         '£                                       £',
+        '£                              l         £',
         '£                                       £',
+        '£                                      £',
         '£                                       £',
-        '£                                       £',
-        '£                                       £',
-        '£        @@@@@@              x x        £',
+        '£        u        t          x x        £',
         '£                          x x x        £',
         '£                        x x x x  x   -+£',
         '£               z   z  x x x x x  x   ()£',
@@ -79,6 +79,9 @@ kaboom({
       '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
       'r': [sprite('surprise'), solid(), 'research-surprise'],
       'p': [sprite('surprise'), solid(), 'info-suprise'],
+      'u': [sprite('surprise'), solid(), 'info-unrealEngine'],
+      'l': [sprite('surprise'), solid(), 'info-parallelPropcessing'],
+      't': [sprite('surprise'), solid(), 'info-teaching'],
       '}': [sprite('unboxed'), solid()],
       '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
       ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
@@ -95,17 +98,19 @@ kaboom({
     }
   
     const gameLevel = addLevel(maps[level], levelCfg)
-    
-    if(level == 0){
-        //this exists for the purpose of work history. main landing page when user loads
-
-    const instructions = add([
+    instructions = add([
         text("Find out more about me!\n\n Move around with arrow keys\n\nJump with space to learn more from the boxes :) \n\n Don't get hit by goombas - it's dangerous out there"),
-        pos(30, 250),
+        pos(20, 250),
         layer('ui'),
         {
         }
         ])
+
+
+    if(level == 0){
+        //this exists for the purpose of work history. main landing page when user loads
+
+    
 
     const aboutMeLvl1= add([
         text("Michael Shlega\n\n Level 1: Work History"),
@@ -179,7 +184,11 @@ kaboom({
         
       if (obj.is('coin-surprise')) {
         //collides with a suprise box meant to be a coin. repurpose for displaying work history
-        destroy(instructions)
+        if(level==0){
+            destroy(instructions)
+        }
+        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+ 
         const electronicArts= add([
             text("Electronic Arts C++ Gameplay Engineer - Jan 2022/ Aug 2022\n\n - Contributed to testing and optimizing player actions and animations by \n\ndeveloping a testbed system, adding player actions, and enabling overnight testing \n\nthrough scripts using efficient data structures and algorithms. Resulted in better test coverage \n\n - Implemented a gameplay feature's animation using the Agile methodology and our game engine's \n\nC++ code, using layered animation tools to minimize bugs and help the team\n\n hit the beta phase one month earlier. \n\n - Integrated a prototype tool to track data changes at runtime and output \n\n debug data during gameplay, improving overall system efficiency and debugging capabilities", 6),
             pos(30, 250),
@@ -204,7 +213,8 @@ kaboom({
         ])
       }
       if (obj.is('research-surprise')) {
-       
+        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+ 
         const infoPipe= add([
             text("Research Assistant HCI Lab - Sep 2021/Dec 2023 \n\n - Published first author paper in Human Computer Interaction area for a Springer journal titled \n\n 'Users, Smart Homes, and Digital Assistants: Impact of Technology Experience and Adoption' \n\n - Presented a paper on this topic to over 300 participants at the HCII international research conference \n\n in July 2022,  and it was one of the most attended sessions at the conference \n\n - Spent two years collecting data and conducting statistical analysis, utilizing \n\n both quantitative tests and qualitative methods \n\n - Participated in peer review committees for other papers at the conference ", 6),
             pos(700, 250),,
@@ -213,6 +223,45 @@ kaboom({
             }
         ])
       }
+
+
+      if (obj.is('info-unrealEngine')) {
+        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+        destroy(instructions)
+        const unreal= add([           
+            text("BFME: Reforged C++ Unreal 5 Developer - February 2023/Present \n\n Part of the Battle For Middle Reforged Team to remake an older game in \n\n Unreal Engine 5. Spent time learning Unreal Engine 5, working with \n\n Blueprint and combining  that with C++ code resulting in a feature \n\ncontribution to the community code base ", 6),
+            pos(30, 250),
+            layer('ui'),
+            {
+            }
+        ])
+        //talk about experience with the unreal engine 
+      }
+
+      if (obj.is('info-teaching')) {
+        gameLevel.spawn('}', obj.gridPos.sub(0,0))
+ 
+        //talk about expereince with TAing
+
+        const rcmp= add([
+            text("Teaching Assistant - Sep 2020/Sep 2022 \n\n - Acted as a mentor and leader for students in an accelerated \n\n introduction to programming course teaching the basics of Java and Python. \n\n - Created workshops to teach basic data structures and OOP principles \n\n Taught lectures and disucsses decompositional thinking as well as space + efficiency concepts \n\n Nominated for Departmental Outstanding TA Award", 6),
+            pos(350, -10),
+            layer('ui'),
+            {
+            }
+        ])
+        }
+       
+        if (obj.is('info-parallelPropcessing')) {
+              gameLevel.spawn('}', obj.gridPos.sub(0,0))
+              const parallelp= add([
+              text("Parallel Processing For Edge Detection \n\n - Pet project to further understand parallelism concepts and ideas \n\n - Reimplemented the Sobel edge detection algorithm in Python with multiple parallel architectural \n\n approaches resulting in efficiency increases ranging from factors of 2 to 13, \n\n which was close to optimal speedup based on core availability \n\n - Compared and contrasted the approaches of SISD, SIMD, MIMD, MISD \n\n based on efficiency, ease of implementation, optimal speedup comparison  ", 6),
+              pos(500, 250),
+              layer('ui'),
+              {
+              }])
+            //talk about parallel processing project
+        }
     })
   
     player.collides('mushroom', (m) => {
