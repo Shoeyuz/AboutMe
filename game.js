@@ -1,4 +1,4 @@
-//IMPORTANT: Make sure to use Kaboom version 0.5.0 for this game by adding the correct script tag in the HTML file.
+
 
 kaboom({
     global: true,
@@ -245,13 +245,10 @@ kaboom({
         go('game', {
           level: (level + 1) % maps.length,
         })
-
-        destroy(instructions)
-        destroy(aboutMeLvl1)
-        destroy(rcmp)
-        destroy(electronicArts)
-        destroy(infoPipe)
       })
+      
+      destroy(instructions)
+      destroy(aboutMeLvl1)
     })
   
     keyDown('left', () => {
