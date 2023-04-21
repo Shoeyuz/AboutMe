@@ -1,5 +1,3 @@
-
-
 kaboom({
     global: true,
     fullscreen: true,
@@ -98,6 +96,8 @@ kaboom({
   
     const gameLevel = addLevel(maps[level], levelCfg)
     
+    if(level == 0){
+        //this exists for the purpose of work history. main landing page when user loads
 
     const instructions = add([
         text("Find out more about me!\n\n Move around with arrow keys\n\nJump with space to learn more from the boxes :) \n\n Don't get hit by goombas - it's dangerous out there"),
@@ -122,7 +122,12 @@ kaboom({
         {
         }
     ])
-   
+    }
+
+
+    if(level == 1){
+        //projects and extracurriculars
+    }
   
     function big() {
       let timer = 0
@@ -246,9 +251,6 @@ kaboom({
           level: (level + 1) % maps.length,
         })
       })
-      
-      destroy(instructions)
-      destroy(aboutMeLvl1)
     })
   
     keyDown('left', () => {
